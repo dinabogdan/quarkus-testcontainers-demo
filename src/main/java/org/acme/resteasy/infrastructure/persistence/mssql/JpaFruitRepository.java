@@ -2,19 +2,21 @@ package org.acme.resteasy.infrastructure.persistence.mssql;
 
 import java.util.Optional;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.acme.resteasy.domain.model.Fruit;
 import org.acme.resteasy.domain.repository.FruitRepository;
 
-@ApplicationScoped
+@Dependent
 public class JpaFruitRepository implements FruitRepository {
-
-    @Inject
+    
     private EntityManager em;
+
+    public JpaFruitRepository(EntityManager em) {
+        this.em = em;
+    }
 
     @Override
     @Transactional
